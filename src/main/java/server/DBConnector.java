@@ -16,10 +16,11 @@ import com.zaxxer.hikari.HikariDataSource;
  */
 public class DBConnector {
 
-    // Database configuration
-    private static final String URL = "jdbc:mysql://localhost:3306/gcm_db?serverTimezone=Asia/Jerusalem";
-    private static final String USER = "root";
-    private static final String PASS = "momo8523";
+    // Database configuration. Set GCM_DB_PASS locally. Do not commit a password.
+    private static final String URL = System.getenv().getOrDefault(
+            "GCM_DB_URL", "jdbc:mysql://localhost:3306/gcm_db?serverTimezone=Asia/Jerusalem");
+    private static final String USER = System.getenv().getOrDefault("GCM_DB_USER", "root");
+    private static final String PASS = System.getenv().getOrDefault("GCM_DB_PASS", "");
 
     // Pool configuration (10 request worker threads + scheduler + overlapping clients can exhaust a tiny pool)
     // Stay below MySQL max_connections (often 151 by default on local installs).
